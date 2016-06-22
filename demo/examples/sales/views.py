@@ -1,5 +1,12 @@
 import extra_views
-from material import LayoutMixin, Layout, Fieldset, Inline, Row, Span2, Span5, Span7
+
+from django import forms
+from django.views import generic
+from material import (
+    LayoutMixin, Layout, Fieldset, Inline,
+    Row, Span2, Span5, Span7,
+    InlineFormMixin, InlineFormSetField)
+
 
 from .models import Shipment, ShipmentItem
 
@@ -13,6 +20,8 @@ class NewShipmentView(LayoutMixin,
                       extra_views.NamedFormsetsMixin,
                       extra_views.CreateWithInlinesView):
     title = "New Shipment"
+    success_url = "/"
+
     model = Shipment
     layout = Layout(
         Row('first_name', 'last_name', 'email'),
@@ -23,3 +32,17 @@ class NewShipmentView(LayoutMixin,
         Inline('Shipment Items', ItemInline),
     )
 
+
+class ShipmentForm(InlineFormMixin, forms.ModelForm):
+    items = InlineFormSetField(
+        forms.inlineformset_factory(Shipment, ShipmentItem, fields='__all__', extra=2)
+    )
+
+    class Meta:
+        model = Shipment
+        fields = '__all__'
+
+
+class NewShipmentFormView(generic.CreateView):
+    success_url = "/"
+    form_class = ShipmentForm

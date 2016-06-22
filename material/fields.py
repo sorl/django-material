@@ -1,6 +1,13 @@
 from django import forms
 
 
+class InlineFormMixin(object):
+    """
+    Mixing for form class, allow to save InlineFormSet fields
+    """
+    pass
+
+
 class FormSetWidget(forms.Widget):
     def render(self, name, value, attrs=None):
         if value is None:
@@ -34,3 +41,7 @@ class FormSetField(forms.Field):
 
     def prepare_value(self, value):
         return value
+
+
+class InlineFormSetField(FormSetField):
+    widget = FormSetWidget

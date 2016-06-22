@@ -14,4 +14,6 @@ urlpatterns = [
         name="opportunities"),
     url('^shipment/new/$', views.NewShipmentView.as_view(template_name="sales/form.html"),
         name="shipment_new"),
+    url('^shipment/add/$', views.NewShipmentFormView.as_view(template_name="sales/form.html"),
+        name="shipment_add"),
 ]
