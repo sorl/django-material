@@ -51,9 +51,6 @@
                 </li>
                 {% endblock %}
                 {% block sidenav_items %}
-                {% if site_url %}
-                    {% block back_link %}<li class="no-padding"><a class="collapsible-header" href="{{ site_url }}"><i class="material-icons">arrow_back</i>{% trans 'View site' %}</a></li>{% endblock %}
-                {% endif %}
                 {% get_app_list request as app_list %}
                 {% for app in app_list %}
                 <li {% if app.active %}class="active"{% endif %}>
@@ -64,7 +61,7 @@
                                 <ul>
                                     {% for model in app.models %}
                                     <li class="{% if model.active %}active{% endif %}">
-                                        <a href="{{ model.admin_url }}">{{ model.name }}</a>
+                                      <a href="{{ model.admin_url }}">{{ model.icon }} {{ model.name }}</a>
                                     </li>
                                     {% endfor %}
                                 </ul>
