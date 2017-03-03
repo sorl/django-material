@@ -10,6 +10,7 @@
         <title>{% block title %}{% endblock %}</title>
         {% block css %}
         {% include 'admin/includes/material_css.html' %}
+        {{ media.css }}
         {% block extrastyle %}{% endblock %}
         {% endblock css %}
         {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
